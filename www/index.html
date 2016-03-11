@@ -49,7 +49,7 @@
     var camera = new THREE.PerspectiveCamera(75, WINDOW_WIDTH / WINDOW_HEIGHT, 1, 5000);
 
     // Position the camera slightly above and in front of the scene
-    camera.position.set(0, -199, 75);
+    camera.position.set(0, 100, 75);
     camera.up = new THREE.Vector3(0,0,1);
 
     // Look at the center of the scene
@@ -97,7 +97,7 @@
         }
 
         var textureLoader = new THREE.TextureLoader();
-        var textureURL = "data/Gale_texture_high_4096px.jpg";
+        var textureURL = "./data/Gale_texture_mobile_2048px.jpg";
 
         // This goes inside the TerrainLoader callback function
         textureLoader.load(textureURL, function(texture) {
@@ -105,9 +105,15 @@
                 map: texture,
             });
 
+            var axis2 = new THREE.Vector3(1,0,0);
+            var x_rotate = Math.PI * -0.5;
+            var q = new THREE.Quaternion();
+            q.setFromAxisAngle(axis2, x_rotate);
+
             // This goes in the TextureLoader callback
             // Create the surface mesh and add it to the scene
             surface = new THREE.Mesh(geometry, material);
+            surface.rotation.setFromQuaternion(q);
             scene.add(surface);
         });
     });
